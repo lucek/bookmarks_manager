@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "sessions#new"
+  root "dashboard#index"
 
   get "signup" => "signup#new"
   post "signup" => "signup#create"

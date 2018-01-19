@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate_user
-    redirect_to(root_url) if current_user.blank?
+    redirect_to(login_url) if current_user.blank?
   end
 
   def current_user

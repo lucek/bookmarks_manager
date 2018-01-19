@@ -64,7 +64,7 @@ RSpec.describe SessionsController, type: :controller do
 
     it "should redirect to root url" do
       expect(response).to be_redirect
-      expect(response).to redirect_to(root_url)
+      expect(response).to redirect_to(login_url)
     end
   end
 end
