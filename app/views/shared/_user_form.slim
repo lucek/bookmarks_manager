@@ -9,7 +9,7 @@
           = bootstrap_form_for :user, url: url do |f|
             = f.email_field :email, class: "input-lg"
             = f.password_field :password, class: "input-lg"
-            = f.submit "Sign up", class: "btn btn-block btn-lg btn-primary"
+            = f.submit login ? "Log in" : "Sign up", class: "btn btn-block btn-lg btn-primary"
           - if login
             | No account? #{link_to "Create one here", signup_url}
           - else
