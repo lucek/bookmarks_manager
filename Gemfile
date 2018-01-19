@@ -27,8 +27,16 @@ gem 'bcrypt', '~> 3.1.7'
 # Bootstrap
 gem 'bootstrap', '~> 4.0.0'
 
+# Bootstrap forms
+gem "bootstrap_form",
+    git: "https://github.com/bootstrap-ruby/rails-bootstrap-forms.git",
+    branch: "master"
+
 # Postgres
 gem 'pg', '~> 0.18'
+
+# Jquery
+gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
