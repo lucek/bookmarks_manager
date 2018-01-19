@@ -1,0 +1,16 @@
+- login = url == login_url ? true : false
+.container
+  .row
+    .col-sm-offset-3.col-sm-6 style=("margin-top: 100px")
+      .panel.panel-default
+        .panel-heading
+          = login ? "Login" : "Sign up"
+        .panel-body
+          = bootstrap_form_for :user, url: url do |f|
+            = f.email_field :email, class: "input-lg"
+            = f.password_field :password, class: "input-lg"
+            = f.submit "Sign up", class: "btn btn-block btn-lg btn-primary"
+          - if login
+            | No account? #{link_to "Create one here", signup_url}
+          - else
+            | Already have an account? #{link_to "Log in here", login_url}
