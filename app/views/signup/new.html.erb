@@ -1,18 +1,1 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-offset-3 col-sm-6" style="margin-top: 100px">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          Create an account
-        </div>
-        <div class="panel-body">
-          <%= bootstrap_form_for :user do |f| %>
-            <%= f.email_field :email, class: "input-lg" %>
-            <%= f.password_field :password, class: "input-lg" %>
-            <%= f.submit "Sign up", class: "btn btn-block btn-lg btn-primary" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render partial: "/shared/user_form", locals: { url: signup_url } %>

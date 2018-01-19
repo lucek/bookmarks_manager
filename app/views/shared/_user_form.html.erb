@@ -1,0 +1,25 @@
+<% login = url == login_url ? true : false %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6" style="margin-top: 100px">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= login ? "Login" : "Sign up" %>
+        </div>
+        <div class="panel-body">
+          <%= bootstrap_form_for :user, url: url do |f| %>
+            <%= f.email_field :email, class: "input-lg" %>
+            <%= f.password_field :password, class: "input-lg" %>
+            <%= f.submit "Sign up", class: "btn btn-block btn-lg btn-primary" %>
+          <% end %>
+          <% if login %>
+            No account? <%= link_to "Create one here", signup_url %>
+          <% else %>
+            Already have an account? <%= link_to "Log in here", login_url %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
