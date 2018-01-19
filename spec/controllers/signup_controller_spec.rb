@@ -34,17 +34,28 @@ RSpec.describe SignupController, type: :controller do
     end
 
     context "with correct data" do
+      name = Faker::StarWars.character
+
       let(:params) do
         {
           user: {
-            email: "#{Faker::StarWars.character}@galaxy.com",
+            email: "#{name}@galaxy.com",
             password: "password"
           }
         }
       end
 
-      it "should redirect to dashboard url" do
+      before do
         post :create, params: params
+      end
+
+      it "should create an user" do
+        expect(User.count).to eq 1
+        user = User.last
+        expect(user.email).to eq "#{name}@galaxy.com"
+      end
+
+      it "should redirect to dashboard url" do
         expect(response).to be_redirect
         expect(response).to redirect_to(dashboard_url)
       end
