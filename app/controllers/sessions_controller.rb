@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout "login"
+  
   def new
     # render the login form
   end

@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title VehiculumTask
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+  body.skin-blue
+    /! Main Header
+    header.main-header
+      /! Logo
+      a.logo href="index2.html"
+        /! mini logo for sidebar mini 50x50 pixels
+        span.logo-mini
+          b> A
+          | LT
+        /! logo for regular state and mobile devices
+        span.logo-lg
+          b> Admin
+          | LTE
+      /! Header Navbar
+      nav.navbar.navbar-static-top role="navigation"
+
+    = render "shared/flash"
+    = yield
