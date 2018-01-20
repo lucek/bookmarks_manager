@@ -5,7 +5,21 @@
   top: 0px;
   width: 100%;
 }
-.flash {
+
+.container {
   display: flex;
-  align-self: center;
+  justify-content: center;
+
+  .user-form {
+    width: 75%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    
+    .row {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  }
 }
