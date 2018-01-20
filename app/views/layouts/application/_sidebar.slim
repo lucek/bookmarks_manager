@@ -15,11 +15,11 @@
         li.header MENU
         /! Optionally, you can add icons to the links
         li class="#{'active' if @add_bookmark}"
-          a href="#"
+          a href="#{new_bookmark_path}"
             i.fa.fa-plus
             span Add bookmark
         li class="#{'active' if @my_bookmarks}"
-          a href="#"
+          a href="#{dashboard_path}"
             i.fa.fa-bookmark
             span My bookmarks
         li class="#{'active' if @my_sites}"
