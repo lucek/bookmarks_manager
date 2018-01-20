@@ -8,16 +8,17 @@ class SessionsController < ApplicationController
 
     if @user.present? && @user.authenticate(user_params[:password])
       cookies.permanent.signed[:user_id] = @user.id
-      flash[:success] = "You've been succesfully logged in"
+      flash[:success] = "You've been successfully logged in"
       redirect_to dashboard_url
     else
+      flash[:error] = "Incorrect email/password"
       render :new
     end
   end
 
   def destroy
     cookies.delete(:user_id)
-    flash[:success] = "You've been succesfully logged out"
+    flash[:success] = "You've been successfully logged out"
     redirect_to login_url
   end
 

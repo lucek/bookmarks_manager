@@ -59,6 +59,10 @@ RSpec.describe SignupController, type: :controller do
         expect(response).to be_redirect
         expect(response).to redirect_to(dashboard_url)
       end
+
+      it "should display flash message" do
+        expect(flash[:success]).to eq "Your account has been created"
+      end
     end
   end
 end

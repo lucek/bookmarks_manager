@@ -7,6 +7,7 @@ class SignupController < ApplicationController
 
     if @user.save
       cookies.signed[:user_id] = @user.id
+      flash[:success] = "Your account has been created"
       redirect_to dashboard_url
     else
       render :new

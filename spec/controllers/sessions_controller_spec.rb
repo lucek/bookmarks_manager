@@ -26,10 +26,17 @@ RSpec.describe SessionsController, type: :controller do
         }
       end
 
-      it "should render #new" do
+      before do
         post :create, params: params
+      end
+
+      it "should render #new" do
         expect(response).to be_success
         expect(response).to render_template(:new)
+      end
+
+      it "should display flash message" do
+        expect(flash[:error]).to eq "Incorrect email/password"
       end
     end
 
@@ -44,10 +51,17 @@ RSpec.describe SessionsController, type: :controller do
         }
       end
 
-      it "should redirect to dashboard url" do
+      before do
         post :create, params: params
+      end
+
+      it "should redirect to dashboard url" do
         expect(response).to be_redirect
         expect(response).to redirect_to(dashboard_url)
+      end
+
+      it "should display flash message" do
+        expect(flash[:success]).to eq "You've been successfully logged in"
       end
     end
   end
@@ -65,6 +79,10 @@ RSpec.describe SessionsController, type: :controller do
     it "should redirect to root url" do
       expect(response).to be_redirect
       expect(response).to redirect_to(login_url)
+    end
+
+    it "should display flash message" do
+      expect(flash[:success]).to eq "You've been successfully logged out"
     end
   end
 end
