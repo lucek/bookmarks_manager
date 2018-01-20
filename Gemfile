@@ -26,6 +26,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Bootstrap
 gem 'bootstrap', '~> 4.0.0'
+gem "font-awesome-rails"
 
 # Bootstrap forms
 gem "bootstrap_form",
@@ -40,6 +41,9 @@ gem 'jquery-rails'
 
 # Slim
 gem "slim-rails"
+
+# Sass
+gem 'sass'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
