@@ -15,8 +15,7 @@ table.table.table-striped
         td = bookmark.shortening
         td
           - bookmark.tags.map do |tag|
-            span.label.label-primary
-              = tag.name
+            = render "tags/tag", tag: tag
         td
           a href="#{edit_bookmark_path(bookmark)}"
             i.fa.fa-pencil

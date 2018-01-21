@@ -8,10 +8,9 @@ table.table.table-striped
     - @tags.map do |tag|
       tr
         td
-          span.label.label-primary
-            = tag.name
+          = render "tags/tag", tag: tag
         td
-          = tag.bookmarks.count
-          = link_to " (see bookmarks) ", dashboard_path(tag_id: tag.id)
+          - bookmarks_count = tag.bookmarks.count
+          = bookmarks_count > 0 ? link_to(bookmarks_count, dashboard_path(tag_id: tag.id)) : bookmarks_count
         td
           = link_to "", tag_path(tag), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"
