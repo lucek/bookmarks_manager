@@ -1,1 +1,4 @@
-= build_table(["Name", "Bookmarks count", ""], @tags)
+- if @tags.any?
+  = build_table(["Name", "Bookmarks count", ""], @tags)
+- else
+  = render "tags/no_data"
