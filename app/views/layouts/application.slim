@@ -7,7 +7,8 @@ html
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
   body.skin-blue
-    = render "shared/flash"
-    = render "layouts/application/header"
-    = render "layouts/application/sidebar"
-    = render "layouts/application/content"
+    .wrapper
+      = render "shared/flash"
+      = render "layouts/application/header"
+      = render "layouts/application/sidebar"
+      = render "layouts/application/content"
