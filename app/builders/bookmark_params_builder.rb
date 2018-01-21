@@ -13,7 +13,7 @@ module BookmarkParamsBuilder
       if site.save
         site_id = site.id
       else
-        errors << site.errors.messages
+        errors << site.errors.full_messages.to_sentence
       end
     end
 

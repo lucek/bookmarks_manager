@@ -44,7 +44,7 @@ class BookmarksController < ApplicationController
         flash[:success] = "Bookmark #{@bookmark.full_url} has been created!"
         redirect_to dashboard_path
       else
-        # flash[:error] = @bookmark.errors
+        flash[:error] = @bookmark.errors.full_messages.to_sentence
         redirect_to new_bookmark_path
       end
     else
