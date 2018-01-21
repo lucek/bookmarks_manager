@@ -8,7 +8,7 @@ class BookmarksController < ApplicationController
       bookmarks = bookmarks.select do |bookmark|
         bookmark.title.include?(search_term) ||
         bookmark.url.include?(search_term) ||
-        bookmark.shortening.include?(search_term) ||
+        bookmark.shortening && bookmark.shortening.include?(search_term) ||
         bookmark.site.url.include?(search_term) ||
         bookmark.tags.map(&:name).include?(search_term)
       end
