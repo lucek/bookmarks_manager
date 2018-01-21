@@ -9,9 +9,9 @@
             = "#{@bookmark.new_record? ? 'Add new' : 'Edit'} bookmark"
           .box-body
             = bootstrap_form_for @bookmark, url: new_record ? bookmarks_url : bookmark_url(@bookmark) do |f|
-              = f.text_field :title, class: "input-lg"
-              = f.text_field :url, value: new_record ? "" : @bookmark.full_url, class: "input-lg"
-              = f.text_field :shortening, class: "input-lg"
-              = f.text_field :all_tags
+              = f.text_field :title, class: "input-lg", placeholder: "e.g. Google"
+              = f.text_field :url, value: new_record ? "" : @bookmark.full_url, class: "input-lg", placeholder: "starts with http:// or https://"
+              = f.text_field :shortening, class: "input-lg", placeholder: "e.g. GPL"
+              = f.text_field :all_tags, label: "Tags", placeholder: "separate tags with a comma"
 
               = f.submit "#{new_record ? "Create" : "Update"} bookmark", class: "btn btn-block btn-lg btn-primary"
