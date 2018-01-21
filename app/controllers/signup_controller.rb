@@ -1,6 +1,6 @@
 class SignupController < ApplicationController
   layout "login"
-  
+
   def new
   end
 
@@ -12,6 +12,7 @@ class SignupController < ApplicationController
       flash[:success] = "Your account has been created"
       redirect_to dashboard_url
     else
+      flash[:error] = @user.errors.full_messages.to_sentence
       render :new
     end
   end
