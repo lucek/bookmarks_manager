@@ -1,9 +1,9 @@
 module BookmarkParamsBuilder
   def self.build_bookmark_params(user, params)
     url      = params[:url]
-    uri      = URI.parse(url)
-    path     = uri.path
-    host     = url.gsub(uri.path, "").downcase
+    host     = url.split('/')[0,3].join('/')
+    path     = url.gsub(host, "")
+    path     = !path.empty? ? path : "/"
     site_id  = Site.find_by_url(host).try(:id)
     errors   = []
 
