@@ -2,12 +2,10 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user
 
   def index
-    search_term = params[:search]
+    bookmarks = current_user.bookmarks
 
-    @bookmarks = if !search_term
-      current_user.bookmarks
-    else
-      current_user.bookmarks.select do |bookmark|
+    if search_term = params[:search]
+      bookmarks = bookmarks.select do |bookmark|
         bookmark.title.include?(search_term) ||
         bookmark.url.include?(search_term) ||
         bookmark.shortening.include?(search_term) ||
@@ -15,6 +13,20 @@ class BookmarksController < ApplicationController
         bookmark.tags.map(&:name).include?(search_term)
       end
     end
+
+    if tag_id = params[:tag_id]
+      bookmarks = bookmarks.select do |bookmark|
+        bookmark.tags.map(&:id).include?(tag_id.to_i)
+      end
+    end
+
+    if site_id = params[:site_id]
+      bookmarks = bookmarks.select do |bookmark|
+        bookmark.site_id == site_id.to_i
+      end
+    end
+
+    @bookmarks = bookmarks
   end
 
   def new

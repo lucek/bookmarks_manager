@@ -10,6 +10,8 @@ table.table.table-striped
         td
           span.label.label-primary
             = tag.name
-        td = tag.bookmarks.count
+        td
+          = tag.bookmarks.count
+          = link_to " (see bookmarks) ", dashboard_path(tag_id: tag.id)
         td
           = link_to "", tag_path(tag), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"
