@@ -18,7 +18,7 @@ RSpec.describe SignupController, type: :controller do
         post :create, params: params
       end
 
-      it "should create an user" do
+      it "creates an user" do
         expect(User.count).to eq 1
         expect(User.last.email).to eq "#{name}@galaxy.com"
       end

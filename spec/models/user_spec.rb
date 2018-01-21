@@ -1,21 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { User.new(password: "password", email: "foo@bar.com") }
-
   describe "Validations" do
-    it "is valid with valid attributes" do
-      expect(subject).to be_valid
-    end
+    subject { User.new(password: "password", email: "foo@bar.com") }
 
-    it "is not valid without a password" do
-      subject.password = nil
-      expect(subject).to_not be_valid
-    end
-
-    it "is not valid without an email" do
-      subject.email = nil
-      expect(subject).to_not be_valid
-    end
+    it_behaves_like "is valid with correct attributes"
+    it_behaves_like "is not valid without required attributes", [:email, :password_digest]
   end
 end

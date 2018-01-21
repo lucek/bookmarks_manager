@@ -77,3 +77,16 @@ end
 RSpec.shared_examples "displays flash message" do |type, message|
   it { expect(flash[type]).to eq message}
 end
+
+RSpec.shared_examples "is not valid without required attributes" do |attributes|
+  attributes.each do |attribute|
+    it "is not valid without #{attribute}" do
+      subject[attribute] = nil
+      expect(subject).to_not be_valid
+    end
+  end
+end
+
+RSpec.shared_examples "is valid with correct attributes" do
+  it { expect(subject).to be_valid }
+end

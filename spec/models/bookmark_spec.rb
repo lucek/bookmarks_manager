@@ -4,29 +4,8 @@ RSpec.describe Bookmark, type: :model do
   describe "Validations" do
     subject { create(:bookmark) }
 
-    it "is valid with valid attributes" do
-      expect(subject).to be_valid
-    end
-
-    it "is valid without shortening" do
-      subject.shortening = nil
-      expect(subject).to be_valid
-    end
-
-    it "is not valid without a title" do
-      subject.title = nil
-      expect(subject).to_not be_valid
-    end
-
-    it "is not valid without an url" do
-      subject.url = nil
-      expect(subject).to_not be_valid
-    end
-
-    it "is not valid without an site_id" do
-      subject.site_id = nil
-      expect(subject).to_not be_valid
-    end
+    it_behaves_like "is valid with correct attributes"
+    it_behaves_like "is not valid without required attributes", [:title, :url, :site_id]
   end
 
   describe "#full_url" do
