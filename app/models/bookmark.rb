@@ -1,6 +1,6 @@
 class Bookmark < ApplicationRecord
   validates_presence_of   :title, :url, :site_id
-  validates_uniqueness_of :url
+  validates_uniqueness_of :url, scope: :site
 
   belongs_to :site
   delegate :user, to: :site
