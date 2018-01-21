@@ -69,10 +69,10 @@ class BookmarksController < ApplicationController
     if @bookmark.destroy
       flash[:success] = "Bookmark has been deleted!"
     else
-      flash[:error] = "Bookmark can't be destroyed"
+      flash[:error] = "Bookmark can't be deleted"
     end
 
-    render :index
+    redirect_to dashboard_path
   end
 
   private

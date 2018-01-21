@@ -18,11 +18,11 @@
             i.fa.fa-bookmark
             span My bookmarks
         li class="#{'active' if @my_sites}"
-          a href="#"
+          a href="#{sites_path}"
             i.fa.fa-globe
             span My sites
         li class="#{'active' if @my_tags}"
-          a href="#"
+          a href="#{tags_path}"
             i.fa.fa-tags
             span My tags
             <div class="tags-cloud glassy-bg">

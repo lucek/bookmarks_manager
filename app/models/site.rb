@@ -4,5 +4,5 @@ class Site < ApplicationRecord
   validates               :url, url: true
 
   belongs_to :user
-  has_many :bookmarks
+  has_many :bookmarks, dependent: :destroy
 end

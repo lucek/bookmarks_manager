@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get "dashboard" => "bookmarks#index"
 
   resources :bookmarks, except: [:index]
+  resources :sites, only: [:index, :destroy]
+  resources :tags, only: [:index, :destroy]
 end

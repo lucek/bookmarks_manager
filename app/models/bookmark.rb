@@ -4,7 +4,7 @@ class Bookmark < ApplicationRecord
 
   belongs_to :site
   delegate :user, to: :site
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
   def full_url

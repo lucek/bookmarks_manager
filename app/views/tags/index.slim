@@ -1,0 +1,15 @@
+table.table.table-striped
+  thead
+    tr
+      th Name
+      th Bookmarks count
+      th &nbsp
+  tbody
+    - @tags.map do |tag|
+      tr
+        td
+          span.label.label-primary
+            = tag.name
+        td = tag.bookmarks.count
+        td
+          = link_to "", tag_path(tag), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"

@@ -1,0 +1,13 @@
+table.table.table-striped
+  thead
+    tr
+      th URL
+      th Bookmarks count
+      th &nbsp
+  tbody
+    - @sites.map do |site|
+      tr
+        td = site.url
+        td = site.bookmarks.count
+        td
+          = link_to "", site_path(site), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"
