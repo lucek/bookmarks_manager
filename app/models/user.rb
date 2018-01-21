@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :sites
   has_many :bookmarks, through: :sites
+  has_many :tags
 end

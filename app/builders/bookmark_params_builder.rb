@@ -22,7 +22,8 @@ module BookmarkParamsBuilder
         title:      params[:title],
         url:        path,
         shortening: params[:shortening],
-        site_id:    site_id
+        site_id:    site_id,
+        all_tags:   params[:all_tags]
       },
       errors: errors
     }

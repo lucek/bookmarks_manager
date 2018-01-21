@@ -4,17 +4,21 @@ table.table.table-striped
       th Title
       th URL
       th Shortening
+      th Tags
       th &nbsp
       th &nbsp
   tbody
-    - @sites.map do |site|
-      - site.bookmarks.map do |bookmark|
-        tr
-          td = bookmark.title
-          td = bookmark.full_url
-          td = bookmark.shortening
-          td
-            a href="#{edit_bookmark_path(bookmark)}"
-              i.fa.fa-pencil
-          td
-            = link_to "", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"
+    - @bookmarks.map do |bookmark|
+      tr
+        td = bookmark.title
+        td = bookmark.full_url
+        td = bookmark.shortening
+        td
+          - bookmark.tags.map do |tag|
+            span.label.label-primary
+              = tag.name
+        td
+          a href="#{edit_bookmark_path(bookmark)}"
+            i.fa.fa-pencil
+        td
+          = link_to "", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"

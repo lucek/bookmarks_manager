@@ -2,7 +2,19 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user
 
   def index
-    @sites = current_user.sites
+    search_term = params[:search]
+
+    @bookmarks = if !search_term
+      current_user.bookmarks
+    else
+      current_user.bookmarks.select do |bookmark|
+        bookmark.title.include?(search_term) ||
+        bookmark.url.include?(search_term) ||
+        bookmark.shortening.include?(search_term) ||
+        bookmark.site.url.include?(search_term) ||
+        bookmark.tags.map(&:name).include?(search_term)
+      end
+    end
   end
 
   def new
@@ -66,6 +78,6 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:title, :url, :shortening)
+    params.require(:bookmark).permit(:title, :url, :shortening, :all_tags)
   end
 end

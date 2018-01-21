@@ -27,7 +27,8 @@ RSpec.describe BookmarksController, type: :controller do
           bookmark: {
             title: "Bookmark",
             url: "http://google.de/abcd",
-            shortening: "BKK"
+            shortening: "BKK",
+            all_tags: ""
           }
         }
       end
@@ -36,7 +37,6 @@ RSpec.describe BookmarksController, type: :controller do
         cookies.permanent.signed[:user_id] = user.id
         post :create, params: params
       end
-
 
       it "should create a bookmark" do
         expect(Bookmark.count).to eq 1
@@ -60,7 +60,8 @@ RSpec.describe BookmarksController, type: :controller do
           bookmark: {
             title: "Bookmark",
             url: "http://google.de/abcd",
-            shortening: "BKK"
+            shortening: "BKK",
+            all_tags: ""
           }
         }
       end
@@ -105,6 +106,68 @@ RSpec.describe BookmarksController, type: :controller do
         end
       end
     end
+
+    context "with tags" do
+      let(:params) do
+        {
+          bookmark: {
+            title: "Bookmark",
+            url: "http://google.de/abcd",
+            shortening: "BKK",
+            all_tags: "tag1"
+          }
+        }
+      end
+
+      before do
+        cookies.permanent.signed[:user_id] = user.id
+      end
+
+      context "tag doesn't exist" do
+        before do
+          post :create, params: params
+        end
+
+        it "should create new tag" do
+          expect(Tag.count).to eq 1
+          expect(Tag.last.name).to eq "tag1"
+        end
+
+        it "should assign tag to created bookmark" do
+          expect(Bookmark.last.tags.count).to eq 1
+          expect(Bookmark.last.tags.map(&:name)).to eq ["tag1"]
+        end
+      end
+
+      context "tag exists" do
+        let(:tag) { create :tag, user: user }
+
+        before do
+          post :create, params: params
+        end
+
+        it "should not create any new tag" do
+          expect(Tag.count).to eq 1
+        end
+
+        it "should assign tag to created bookmark" do
+          expect(Bookmark.last.tags.count).to eq 1
+          expect(Bookmark.last.tags.map(&:name)).to eq ["tag1"]
+        end
+      end
+
+      context "multiple tags" do
+        before do
+          params[:bookmark][:all_tags] = "tag1,tag2,tag3"
+          post :create, params: params
+        end
+
+        it "should assign tags to created bookmark" do
+          expect(Bookmark.last.tags.count).to eq 3
+          expect(Bookmark.last.tags.map(&:name)).to eq ["tag1", "tag2", "tag3"]
+        end
+      end
+    end
   end
 
   describe "#update" do
@@ -117,7 +180,8 @@ RSpec.describe BookmarksController, type: :controller do
           bookmark: {
             title: "Bookmark",
             url: "http://google.de/abcd",
-            shortening: "BKK"
+            shortening: "BKK",
+            all_tags: ""
           }
         }
       end
@@ -148,7 +212,8 @@ RSpec.describe BookmarksController, type: :controller do
           bookmark: {
             title: "Bookmark",
             url: "http://google.de/abcd",
-            shortening: "BKK"
+            shortening: "BKK",
+            all_tags: ""
           }
         }
       end

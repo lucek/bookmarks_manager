@@ -15,4 +15,9 @@ FactoryBot.define do
     url "/search"
     association :site, factory: :site
   end
+
+  factory :tag do
+    name "tag1"
+    association :user, factory: :user
+  end
 end

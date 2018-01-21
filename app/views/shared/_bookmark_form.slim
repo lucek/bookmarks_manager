@@ -12,4 +12,6 @@
               = f.text_field :title, class: "input-lg"
               = f.text_field :url, value: new_record ? "" : @bookmark.full_url, class: "input-lg"
               = f.text_field :shortening, class: "input-lg"
+              = f.text_field :all_tags
+
               = f.submit "#{new_record ? "Create" : "Update"} bookmark", class: "btn btn-block btn-lg btn-primary"
