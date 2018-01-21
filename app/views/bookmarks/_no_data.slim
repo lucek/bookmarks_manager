@@ -1,0 +1,9 @@
+.no-data
+  .box.box-success
+    .box-header
+      p
+        = search ? "No bookmarks matching search criteria" : "You have no bookmarks yet"
+      p
+        a href=new_bookmark_path
+          button.btn.btn-success type="button"
+            = search ? "Add new bookmark" : "Add your first bookmark"

@@ -1,11 +1,4 @@
 - if @bookmarks.any?
   = build_table(["Title", "URL", "Shortening", "Tags", "", ""], @bookmarks)
 - else
-  .no-data
-    .box.box-success
-      .box-header
-        p You have no bookmarks yet
-        p
-          a href=new_bookmark_path
-            button.btn.btn-success type="button"
-              | Add your first bookmark
+  = render "bookmarks/no_data", search: params[:search]

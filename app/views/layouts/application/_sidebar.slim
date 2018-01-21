@@ -1,9 +1,9 @@
 .sidebar-wrapper
   aside.main-sidebar
     section.sidebar
-      form.sidebar-form action="#" method="get"
+      = form_tag(dashboard_path, method: :get, class: "form sidebar-form")  do
         .input-group
-          input.form-control name="search" placeholder="Search..." type="text" /
+          = text_field_tag :search, "", class: "form-control", placeholder: "Search..."
           span.input-group-btn
             button#search-btn.btn.btn-flat type="submit"
               i.fa.fa-search
