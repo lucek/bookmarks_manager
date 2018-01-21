@@ -4,18 +4,18 @@
       i.fa.fa-bookmark
     .info-box-content
       span.info-box-text Bookmarks
-      span.info-box-number = Bookmark.count
+      span.info-box-number = current_user.bookmarks.count
 
   .info-box
     span.info-box-icon.bg-blue
       i.fa.fa-globe
     .info-box-content
       span.info-box-text Sites
-      span.info-box-number = Site.count
+      span.info-box-number = current_user.sites.count
 
   .info-box
     span.info-box-icon.bg-red
       i.fa.fa-tags
     .info-box-content
       span.info-box-text Tags
-      span.info-box-number 93,139
+      span.info-box-number = current_user.tags.count

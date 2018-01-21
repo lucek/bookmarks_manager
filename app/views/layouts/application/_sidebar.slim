@@ -1,19 +1,14 @@
 .sidebar-wrapper
   aside.main-sidebar
-    /! sidebar: style can be found in sidebar.less
     section.sidebar
-      /! search form (Optional)
       form.sidebar-form action="#" method="get"
         .input-group
           input.form-control name="search" placeholder="Search..." type="text" /
           span.input-group-btn
             button#search-btn.btn.btn-flat type="submit"
               i.fa.fa-search
-      /! /.search form
-      /! Sidebar Menu
       ul.sidebar-menu data-widget="tree"
         li.header MENU
-        /! Optionally, you can add icons to the links
         li class="#{'active' if @add_bookmark}"
           a href="#{new_bookmark_path}"
             i.fa.fa-plus
@@ -26,6 +21,8 @@
           a href="#"
             i.fa.fa-globe
             span My sites
-
-      /! /.sidebar-menu
-    /! /.sidebar
+        li class="#{'active' if @my_tags}"
+          a href="#"
+            i.fa.fa-tags
+            span My tags
+            <div class="tags-cloud glassy-bg">
