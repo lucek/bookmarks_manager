@@ -1,6 +1,6 @@
 tr
   td = bookmark.title
-  td = bookmark.full_url
+  td = link_to bookmark.full_url, bookmark.full_url
   td = bookmark.shortening
   td
     - bookmark.tags.map do |tag|
