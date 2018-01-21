@@ -7,19 +7,11 @@ html
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
   body.skin-blue
-    /! Main Header
     header.main-header
-      /! Logo
-      a.logo href="index2.html"
-        /! mini logo for sidebar mini 50x50 pixels
-        span.logo-mini
-          b> A
-          | LT
-        /! logo for regular state and mobile devices
+      a.logo href=login_path
         span.logo-lg
-          b> Admin
-          | LTE
-      /! Header Navbar
+          b> Bookmark
+          | Manager
       nav.navbar.navbar-static-top role="navigation"
 
     = render "shared/flash"

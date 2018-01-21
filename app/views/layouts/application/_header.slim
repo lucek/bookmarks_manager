@@ -1,14 +1,12 @@
-/! Main Header
 header.main-header
-  /! Logo
-  a.logo href="index2.html"
-    /! mini logo for sidebar mini 50x50 pixels
-    span.logo-mini
-      b> B
-      | MG
-    /! logo for regular state and mobile devices
+  a.logo href="#{dashboard_path}"
     span.logo-lg
       b> Bookmark
       | Manager
-  /! Header Navbar
   nav.navbar.navbar-static-top role="navigation"
+    | &nbsp
+    .navbar-custom-menu
+      ul.nav.navbar-nav
+        li
+          a data-toggle="control-sidebar" href=logout_path
+            i.fa.fa-power-off
