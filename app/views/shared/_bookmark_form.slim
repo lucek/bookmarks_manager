@@ -4,10 +4,10 @@
   .user-form
     .row
       .col-sm-offset-3.col-sm-6 style=("margin-top: 100px")
-        .panel.panel-default
-          .panel-heading
+        .box.box-success
+          .box-header.with-border.text-center
             = "#{@bookmark.new_record? ? 'Add new' : 'Edit'} bookmark"
-          .panel-body
+          .box-body
             = bootstrap_form_for @bookmark, url: new_record ? bookmarks_url : bookmark_url(@bookmark) do |f|
               = f.text_field :title, class: "input-lg"
               = f.text_field :url, value: new_record ? "" : @bookmark.full_url, class: "input-lg"

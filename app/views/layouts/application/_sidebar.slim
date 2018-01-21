@@ -9,19 +9,19 @@
               i.fa.fa-search
       ul.sidebar-menu data-widget="tree"
         li.header MENU
-        li class="#{'active' if @add_bookmark}"
+        li class="#{'active' if @bookmark}"
           a href="#{new_bookmark_path}"
             i.fa.fa-plus
             span Add bookmark
-        li class="#{'active' if @my_bookmarks}"
+        li class="#{'active' if @bookmarks}"
           a href="#{dashboard_path}"
             i.fa.fa-bookmark
             span My bookmarks
-        li class="#{'active' if @my_sites}"
+        li class="#{'active' if @sites}"
           a href="#{sites_path}"
             i.fa.fa-globe
             span My sites
-        li class="#{'active' if @my_tags}"
+        li class="#{'active' if @tags}"
           a href="#{tags_path}"
             i.fa.fa-tags
             span My tags
