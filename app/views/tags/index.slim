@@ -1,16 +1,1 @@
-table.table.table-striped
-  thead
-    tr
-      th Name
-      th Bookmarks count
-      th &nbsp
-  tbody
-    - @tags.map do |tag|
-      tr
-        td
-          = render "tags/tag", tag: tag
-        td
-          - bookmarks_count = tag.bookmarks.count
-          = bookmarks_count > 0 ? link_to(bookmarks_count, dashboard_path(tag_id: tag.id)) : bookmarks_count
-        td
-          = link_to "", tag_path(tag), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"
+= build_table(["Name", "Bookmarks count", ""], @tags)

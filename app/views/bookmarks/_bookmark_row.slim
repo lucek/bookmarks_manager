@@ -1,0 +1,12 @@
+tr
+  td = bookmark.title
+  td = bookmark.full_url
+  td = bookmark.shortening
+  td
+    - bookmark.tags.map do |tag|
+      = render "tags/tag_label", tag: tag
+  td
+    a href="#{edit_bookmark_path(bookmark)}"
+      i.fa.fa-pencil
+  td
+    = link_to "", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"

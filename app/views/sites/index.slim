@@ -1,16 +1,1 @@
-table.table.table-striped
-  thead
-    tr
-      th URL
-      th Bookmarks count
-      th &nbsp
-  tbody
-    - @sites.map do |site|
-      tr
-        td
-          = link_to site.url, site.url
-        td
-          - bookmarks_count = site.bookmarks.count
-          = bookmarks_count > 0 ? link_to(bookmarks_count, dashboard_path(site_id: site.id)) : bookmarks_count
-        td
-          = link_to "", site_path(site), method: :delete, data: { confirm: "Are you sure?" }, class: "i fa fa-trash"
+= build_table(["URL", "Bookmarks count", ""], @sites)

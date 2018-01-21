@@ -1,0 +1,9 @@
+table.table.table-striped
+  thead
+    tr
+      - headers.each do |header|
+        th
+          = header
+  tbody
+    - collection.map do |item|
+      = get_row_to_render(item)
