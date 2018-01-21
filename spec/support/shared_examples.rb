@@ -1,6 +1,11 @@
-RSpec.shared_examples "index examples" do
+RSpec.shared_examples "renders index" do
   it { expect(response).to be_success }
   it { expect(subject).to render_template(:index) }
+end
+
+RSpec.shared_examples "renders new" do
+  it { expect(response).to be_success }
+  it { expect(subject).to render_template(:new) }
 end
 
 RSpec.shared_examples "without required attributes it redirects back to form" do |attributes, action|
@@ -39,7 +44,7 @@ RSpec.shared_examples "with invalid url it redirects back to form" do |action|
   it_behaves_like "redirects to #{template}"
 end
 
-RSpec.shared_examples "redirects to new" do
+RSpec.shared_examples "redirects to new" do |path|
   it { expect(response).to be_redirect }
   it { expect(response).to redirect_to(new_bookmark_path) }
 end
@@ -52,6 +57,11 @@ end
 RSpec.shared_examples "redirects to dashboard" do
   it { expect(response).to be_redirect }
   it { expect(response).to redirect_to(dashboard_path) }
+end
+
+RSpec.shared_examples "redirects to login" do
+  it { expect(response).to be_redirect }
+  it { expect(response).to redirect_to(login_path) }
 end
 
 RSpec.shared_examples "assigns tags to bookmark" do |tag_names, tag_count|

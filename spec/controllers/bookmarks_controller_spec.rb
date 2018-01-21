@@ -13,7 +13,7 @@ RSpec.describe BookmarksController, type: :controller do
       get :index
     end
 
-    it_behaves_like "index examples"
+    it_behaves_like "renders index"
   end
 
   describe "#create" do
@@ -89,13 +89,10 @@ RSpec.describe BookmarksController, type: :controller do
         end
 
         it_behaves_like "redirects to dashboard"
+        it_behaves_like "displays flash message", :success, "Bookmark has been updated!"
 
         it "updates bookmark" do
           expect(bookmark.reload.title).to eq "Bookmark"
-        end
-
-        it "displays flash message" do
-          expect(flash[:success]).to eq "Bookmark has been updated!"
         end
       end
 

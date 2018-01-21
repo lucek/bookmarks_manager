@@ -3,6 +3,15 @@ module SpecUtilities
     cookies.permanent.signed[:user_id] = user.id
   end
 
+  def get_login_params(email, password)
+    {
+      user: {
+        email: email,
+        password: password
+      }
+    }
+  end
+
   def get_bookmark_params
     {
       bookmark: {
