@@ -1,40 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe BookmarksController, type: :controller do
-  describe "#index" do
-    let(:user) { create :user }
+  let(:user)   { create :user }
+  let(:params) { get_bookmark_params }
 
+  before do
+    login_user(user)
+  end
+
+  describe "#index" do
     before do
-      cookies.permanent.signed[:user_id] = user.id
       get :index
     end
 
-    it "should get index" do
-      expect(response).to be_success
-    end
-
-    it "should render dashboard index page" do
-      expect(response).to render_template(:index)
-    end
+    it_behaves_like "index examples"
   end
 
   describe "#create" do
-    let(:user) { create :user }
-
     context "with correct data" do
-      let(:params) do
-        {
-          bookmark: {
-            title: "Bookmark",
-            url: "http://google.de/abcd",
-            shortening: "BKK",
-            all_tags: ""
-          }
-        }
-      end
-
       before do
-        cookies.permanent.signed[:user_id] = user.id
         post :create, params: params
       end
 
@@ -44,83 +28,18 @@ RSpec.describe BookmarksController, type: :controller do
         expect(bookmark.title).to eq "Bookmark"
       end
 
-      it "should redirect to dashboard url" do
-        expect(response).to be_redirect
-        expect(response).to redirect_to(dashboard_url)
-      end
-
-      it "should display flash message" do
-        expect(flash[:success]).to eq "Bookmark http://google.de/abcd has been created!"
-      end
+      it_behaves_like "redirects to dashboard"
+      it_behaves_like "displays flash message", :success, "Bookmark http://google.de/abcd has been created!"
     end
 
     context "with incorrect data" do
-      let(:params) do
-        {
-          bookmark: {
-            title: "Bookmark",
-            url: "http://google.de/abcd",
-            shortening: "BKK",
-            all_tags: ""
-          }
-        }
-      end
-
-      before do
-        cookies.permanent.signed[:user_id] = user.id
-      end
-
-      context "without title" do
-        before do
-          params[:bookmark][:title] = nil
-          post :create, params: params
-        end
-
-        it "should render #new" do
-          expect(response).to be_redirect
-          expect(response).to redirect_to(new_bookmark_path)
-        end
-      end
-
-      context "without url" do
-        before do
-          params[:bookmark][:url] = nil
-          post :create, params: params
-        end
-
-        it "should render #new" do
-          expect(response).to be_redirect
-          expect(response).to redirect_to(new_bookmark_path)
-        end
-      end
-
-      context "with invalid url" do
-        before do
-          params[:bookmark][:url] = "abcdef"
-          post :create, params: params
-        end
-
-        it "should render #new" do
-          expect(response).to be_redirect
-          expect(response).to redirect_to(new_bookmark_path)
-        end
-      end
+      it_behaves_like "without required attributes it redirects back to form", [:title, :url], :create
+      it_behaves_like "with invalid url it redirects back to form", :create
     end
 
     context "with tags" do
-      let(:params) do
-        {
-          bookmark: {
-            title: "Bookmark",
-            url: "http://google.de/abcd",
-            shortening: "BKK",
-            all_tags: "tag1"
-          }
-        }
-      end
-
       before do
-        cookies.permanent.signed[:user_id] = user.id
+        params[:bookmark][:all_tags] = "tag1"
       end
 
       context "tag doesn't exist" do
@@ -128,32 +47,20 @@ RSpec.describe BookmarksController, type: :controller do
           post :create, params: params
         end
 
-        it "should create new tag" do
-          expect(Tag.count).to eq 1
-          expect(Tag.last.name).to eq "tag1"
-        end
-
-        it "should assign tag to created bookmark" do
-          expect(Bookmark.last.tags.count).to eq 1
-          expect(Bookmark.last.tags.map(&:name)).to eq ["tag1"]
-        end
+        it_behaves_like "ensures there is only one tag", "tag1"
+        it_behaves_like "assigns tags to bookmark", ["tag1"], 1
       end
 
       context "tag exists" do
-        let(:tag) { create :tag, user: user }
+        let(:tag) { create :tag, name: "existingtag", user: user }
 
         before do
+          params[:bookmark][:all_tags] = "existingtag"
           post :create, params: params
         end
 
-        it "should not create any new tag" do
-          expect(Tag.count).to eq 1
-        end
-
-        it "should assign tag to created bookmark" do
-          expect(Bookmark.last.tags.count).to eq 1
-          expect(Bookmark.last.tags.map(&:name)).to eq ["tag1"]
-        end
+        it_behaves_like "ensures there is only one tag", "existingtag"
+        it_behaves_like "assigns tags to bookmark", ["existingtag"], 1
       end
 
       context "multiple tags" do
@@ -162,116 +69,54 @@ RSpec.describe BookmarksController, type: :controller do
           post :create, params: params
         end
 
-        it "should assign tags to created bookmark" do
-          expect(Bookmark.last.tags.count).to eq 3
-          expect(Bookmark.last.tags.map(&:name)).to eq ["tag1", "tag2", "tag3"]
-        end
+        it_behaves_like "assigns tags to bookmark", ["tag1", "tag2", "tag3"], 3
       end
     end
   end
 
-  describe "#update" do
-    let(:bookmark) { create :bookmark }
+  describe "#update and #destroy" do
+    let(:site)     { create :site, user: user }
+    let(:bookmark) { create :bookmark, site: site }
 
-    context "with correct data" do
-      let(:params) do
-        {
-          id: bookmark.id,
-          bookmark: {
-            title: "Bookmark",
-            url: "http://google.de/abcd",
-            shortening: "BKK",
-            all_tags: ""
-          }
-        }
+    describe "#update" do
+      before do
+        params[:id] = bookmark.id
       end
+
+      context "with correct data" do
+        before do
+          post :update, params: params
+        end
+
+        it_behaves_like "redirects to dashboard"
+
+        it "updates bookmark" do
+          expect(bookmark.reload.title).to eq "Bookmark"
+        end
+
+        it "displays flash message" do
+          expect(flash[:success]).to eq "Bookmark has been updated!"
+        end
+      end
+
+      context "with incorrect data" do
+        it_behaves_like "without required attributes it redirects back to form", [:title, :url], :update
+        it_behaves_like "with invalid url it redirects back to form", :update
+      end
+    end
+
+    describe "#destroy" do
+      let(:params) { { id: bookmark.id } }
 
       before do
-        cookies.permanent.signed[:user_id] = bookmark.user.id
-        post :update, params: params
+        delete :destroy, params: params
       end
 
-      it "should update bookmark" do
-        expect(bookmark.reload.title).to eq "Bookmark"
+      it_behaves_like "redirects to dashboard"
+
+      it "deletes the bookmark" do
+        expect(Bookmark.count).to eq 0
       end
-
-      it "should redirect to dashboard url" do
-        expect(response).to be_redirect
-        expect(response).to redirect_to(dashboard_url)
-      end
-
-      it "should display flash message" do
-        expect(flash[:success]).to eq "Bookmark has been updated!"
-      end
-    end
-
-    context "with incorrect data" do
-      let(:params) do
-        {
-          id: bookmark.id,
-          bookmark: {
-            title: "Bookmark",
-            url: "http://google.de/abcd",
-            shortening: "BKK",
-            all_tags: ""
-          }
-        }
-      end
-
-      before do
-        cookies.permanent.signed[:user_id] = bookmark.user.id
-      end
-
-      context "without title" do
-        before do
-          params[:bookmark][:title] = nil
-          post :update, params: params
-        end
-
-        it "should render #edit" do
-          expect(response).to be_redirect
-          expect(response).to redirect_to(edit_bookmark_path)
-        end
-      end
-
-      context "without url" do
-        before do
-          params[:bookmark][:url] = nil
-          post :update, params: params
-        end
-
-        it "should render #new" do
-          expect(response).to be_redirect
-          expect(response).to redirect_to(edit_bookmark_path)
-        end
-      end
-
-      context "with invalid url" do
-        before do
-          params[:bookmark][:url] = "abcdef"
-          post :update, params: params
-        end
-
-        it "should render #new" do
-          expect(response).to be_redirect
-          expect(response).to redirect_to(edit_bookmark_path)
-        end
-      end
-    end
-  end
-
-  describe "#destroy" do
-    let(:bookmark) { create :bookmark }
-    let(:params) { { id: bookmark.id } }
-
-    before do
-      cookies.permanent.signed[:user_id] = bookmark.user.id
-      delete :destroy, params: params
-    end
-
-    it "should redirect to dashboard url" do
-      expect(response).to be_success
-      expect(response).to render_template(:index)
     end
   end
 end
