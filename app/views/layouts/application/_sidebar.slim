@@ -17,11 +17,11 @@
           a href="#{dashboard_path}"
             i.fa.fa-bookmark
             span My bookmarks
-        li class="#{'active' if @sites}"
+        li class="#{'active' if @sites} #{'disabled' if current_user.bookmarks.empty?}"
           a href="#{sites_path}"
             i.fa.fa-globe
             span My sites
-        li class="#{'active' if @tags}"
+        li class="#{'active' if @tags} #{'disabled' if current_user.bookmarks.empty?}"
           a href="#{tags_path}"
             i.fa.fa-tags
             span My tags
