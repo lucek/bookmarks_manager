@@ -1,24 +1,43 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Bookmark Manager
 
-Things you may want to cover:
+Bookmark manager with user authentication
 
-* Ruby version
+## Setup
 
-* System dependencies
+* Clone this repository
+* Install gems
 
-* Configuration
+    ```
+    $ bundle install
+    ```
 
-* Database creation
+* Create database.yml from database.yml.example
 
-* Database initialization
+    ```
+    $ cp config/database.yml.example config/database.yml
+    ```
 
-* How to run the test suite
+* Create the database
 
-* Services (job queues, cache servers, search engines, etc.)
+    ```
+    $ rails db:create
+    ```
 
-* Deployment instructions
+* Migrate the database
 
-* ...
+    ```
+    $ rails db:migrate
+    ```
+
+* Run the application
+
+    ```
+    $ bundle exec rails s
+    ```
+
+* Running the test suite
+
+   ```
+   rspec spec
+   ```
