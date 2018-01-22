@@ -4,7 +4,13 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   def url_valid?(url)
-    url = URI.parse(url) rescue false
-    url.kind_of?(URI::HTTP) || url.kind_of?(URI::HTTPS)
+    uri = URI.parse(url) rescue false
+    uri && host_valid?(uri)
+  end
+
+  private
+
+  def host_valid?(uri)
+    !uri.host.nil? && uri.host.match(/^(http|https):\/\/|[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$/)
   end
 end
